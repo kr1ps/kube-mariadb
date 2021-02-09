@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mariadb-config
+  labels:
+    app: mariadb
+data:
+  MYSQL_ROOT_PASSWORD: password
+  MARIADB_DATABASE: test
+  MARIADB_USER: krips
+  
