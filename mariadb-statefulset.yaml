@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mariadb-statefulset
+  labels:
+    name: mariadb-statefulset
+    app: mariadb
+spec:
+  serviceName: "mariadb"
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mariadb
+      name: mariadb-pod
+  template:
+    metadata:
+      name: mariadb-pod
+      labels:
+        app: mariadb
+        name: mariadb-pod
+    spec:
+      containers:
+        - name: mariadb-container
+          image: mariadb
+          ports:
+            - containerPort: 3306
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: password
+          # envFrom:
+          #   - configMapRef:
+          #       name: mariadb-config
+          volumeMounts:
+            - name: mariadb-data
+              mountPath: /var/lib/mysql
+      volumes:
+      - name: mariadb-data
+        persistentVolumeClaim:
+          claimName: mariadb-pv-claim 

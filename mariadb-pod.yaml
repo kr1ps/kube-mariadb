@@ -4,6 +4,7 @@ metadata:
   name: mariadb-pod
   labels:
     app: mariadb
+    name: mariadb-pod
 spec:
   containers:
     - name: mariadb-container
